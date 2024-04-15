@@ -1,0 +1,21 @@
+<p>This rule detects usage of configured annotation</p>
+<h2>Noncompliant Code Example</h2>
+<pre id="compliantContent">
+
+    // The following code would cause potential multi app compatibility issues if it is in base;
+    // In koupleless runtime, a jvm would contains multi jar bundle.
+    // Each jar bundle serve as a unique app differently.
+    // Different jar bundle may contains classes with the same name.
+    // However the classloader of different jar bundle is different.
+    // But jvm treat class with different classloader as different class.
+    // This behaviour leads to conflict with the cache key cause, the cache key is class name and the class name is the same.
+    // This conflict would raise a runtime exception, so it is a potential multi app compatibility issues.
+
+    Map&lt; String, Method&gt; nameToClassFieldCache = new HashMap<>();
+</pre>
+<h2>Compliant Solution</h2>
+<pre id="compliantSolution">
+
+    // To fix this issue, we should add another layer of key which type is classloader to address the conflict.
+    Map&lt;ClassLoader, Map&lt;String, Method&gt;&gt; nameToClassFieldCache = new HashMap<>();
+</pre>

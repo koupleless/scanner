@@ -33,7 +33,7 @@ public class MajorStaticVariableCheckerTest {
 
     @Test
     public void test() {
-        MajorStaticVariableChecker check = new MajorStaticVariableChecker();
+        MajorStaticVariableCheckRule check = new MajorStaticVariableCheckRule();
         InternalCheckVerifier checkVerifier = (InternalCheckVerifier) CheckVerifier.newVerifier();
         checkVerifier = checkVerifier.withCustomIssueVerifier(new Consumer<Set<AnalyzerMessage>>() {
             @Override

@@ -14,11 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alipay.sofa.koupleless.sonar.plugin.java.plugin;
-
 /**
  * @author CodeNoobKing
- * @date 2024/4/11
+ * @date 2024/4/12
  **/
-public class KouplelessJavaSonarPlugin {
-}
+package com.alipay.sofa.koupleless.sonar.plugin.java;

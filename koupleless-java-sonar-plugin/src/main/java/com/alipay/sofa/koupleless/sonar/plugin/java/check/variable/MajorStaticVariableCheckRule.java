@@ -28,8 +28,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-@Rule(name = "KS0101", priority = Priority.MAJOR)
-public class MajorStaticVariableChecker extends IssuableSubscriptionVisitor {
+@Rule(key = "MajorStaticVariableCheck", name = "koupleless-static-variable-major", priority = Priority.MAJOR)
+public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
 
     /**
      * When the field has final modifier and the type is immutable, the static variable is safe.
