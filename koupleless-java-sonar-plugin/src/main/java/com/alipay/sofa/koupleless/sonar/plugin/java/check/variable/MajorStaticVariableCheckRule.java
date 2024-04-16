@@ -34,8 +34,8 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
     /**
      * When the field has final modifier and the type is immutable, the static variable is safe.
      */
-    public static Pattern  NO_WARNING_IMMUTABLE_TYPES_COMPILED                   = null;
-    public static String   NO_WARNING_IMMUTABLE_TYPES                            = """
+    public static Pattern NO_WARNING_IMMUTABLE_TYPES_COMPILED = null;
+    public static String  NO_WARNING_IMMUTABLE_TYPES          = """
             int|
             long|
             short|
@@ -105,8 +105,8 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
      * When the field name matches the pattern, it often indicates specific safe usage such as keyword, codec, etc.
      * So we don't need to warn them as a major issue.
      */
-    private static Pattern NO_WARNING_FIELD_NAME_PATTERN_COMPILED                = null;
-    private static String  NO_WARNING_FIELD_NAME_PATTERN                         = """
+    private static Pattern NO_WARNING_FIELD_NAME_PATTERN_COMPILED = null;
+    private static String  NO_WARNING_FIELD_NAME_PATTERN          = """
             CODE_TO_VALUE|
             localhost|
             keywords|
@@ -284,8 +284,8 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
      * Sometimes the containing class is just a utility class or a test class, such as Builder, Mock, Lexer, etc.
      * So we don't need to warn them as a major issue.
      */
-    private static Pattern NO_WARNING_CONTAINING_CLASS_NAME_PATTERN_COMPILED     = null;
-    private static String  NO_WARNING_CONTAINING_CLASS_NAME_PATTERN              = """
+    private static Pattern NO_WARNING_CONTAINING_CLASS_NAME_PATTERN_COMPILED = null;
+    private static String  NO_WARNING_CONTAINING_CLASS_NAME_PATTERN          = """
             .*Builder$|
             ^Mock.*|
             .*Lexer$|
@@ -298,8 +298,8 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
      * Sometimes the field is initialized by some common safe ways, such as unmodifiable containers or TypeToken.
      * So we don't need to warn them as a major issue.
      */
-    public static Pattern  NO_WARNING_FIELD_INITIALIZATION_TEXT_PATTERN_COMPILED = null;
-    public static String   NO_WARNING_FIELD_INITIALIZATION_TEXT_PATTERN          = """
+    public static Pattern NO_WARNING_FIELD_INITIALIZATION_TEXT_PATTERN_COMPILED = null;
+    public static String  NO_WARNING_FIELD_INITIALIZATION_TEXT_PATTERN          = """
             new TypeToken.*|
             new ParameterizedTypeReference.*|
             new TypeReference.*|
@@ -327,8 +327,8 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
      * Sometimes the field type is safe, such as some common types such as LOGGER, GSON, etc.
      * So we don't need to warn them as a major issue.
      */
-    private static Pattern NO_WARNING_FIELD_TYPE_PATTERN_COMPILED                = null;
-    private static String  NO_WARNING_FIELD_TYPE_PATTERN                         = """
+    private static Pattern NO_WARNING_FIELD_TYPE_PATTERN_COMPILED = null;
+    private static String  NO_WARNING_FIELD_TYPE_PATTERN          = """
             SYSTEM|
             GSON|
             Gson|
@@ -390,16 +390,16 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
 
     static {
         NO_WARNING_IMMUTABLE_TYPES_COMPILED = Pattern
-            .compile(NO_WARNING_IMMUTABLE_TYPES.replace(System.lineSeparator(), ""));
+                .compile(NO_WARNING_IMMUTABLE_TYPES.replace(System.lineSeparator(), ""));
         NO_WARNING_FIELD_NAME_PATTERN_COMPILED = Pattern
-            .compile(NO_WARNING_FIELD_NAME_PATTERN.replace(System.lineSeparator(), ""));
+                .compile(NO_WARNING_FIELD_NAME_PATTERN.replace(System.lineSeparator(), ""));
         NO_WARNING_FIELD_TYPE_PATTERN_COMPILED = Pattern
-            .compile(NO_WARNING_FIELD_TYPE_PATTERN.replace(System.lineSeparator(), ""));
+                .compile(NO_WARNING_FIELD_TYPE_PATTERN.replace(System.lineSeparator(), ""));
         NO_WARNING_FIELD_INITIALIZATION_TEXT_PATTERN_COMPILED = Pattern.compile(
-            NO_WARNING_FIELD_INITIALIZATION_TEXT_PATTERN.replace(System.lineSeparator(), ""),
-            Pattern.DOTALL);
+                NO_WARNING_FIELD_INITIALIZATION_TEXT_PATTERN.replace(System.lineSeparator(), ""),
+                Pattern.DOTALL);
         NO_WARNING_CONTAINING_CLASS_NAME_PATTERN_COMPILED = Pattern
-            .compile(NO_WARNING_CONTAINING_CLASS_NAME_PATTERN.replace(System.lineSeparator(), ""));
+                .compile(NO_WARNING_CONTAINING_CLASS_NAME_PATTERN.replace(System.lineSeparator(), ""));
     }
 
     @Override
@@ -423,11 +423,11 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
         }
 
         VariableCheckUnit checkUnit = VariableCheckUnit.builder()
-            .name((variableTree.simpleName().name()))
-            .type(variableTree.type().symbolType().fullyQualifiedName())
-            .finalModifier(variableTree.symbol().isFinal())
-            .staticModifier(variableTree.symbol().isStatic()).initializerText(initializerText)
-            .containingClassName(containingClassName).build();
+                .name((variableTree.simpleName().name()))
+                .type(variableTree.type().symbolType().fullyQualifiedName())
+                .finalModifier(variableTree.symbol().isFinal())
+                .staticModifier(variableTree.symbol().isStatic()).initializerText(initializerText)
+                .containingClassName(containingClassName).build();
 
         check(checkUnit, variableTree);
 
@@ -437,7 +437,7 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
     public boolean shouldWarnStaticVariable(VariableCheckUnit unit) {
         // 不可变对象，不需要警告。
         if (unit.isFinalModifier() && NO_WARNING_IMMUTABLE_TYPES_COMPILED
-            .matcher(StringUtils.trim(unit.getType())).matches()) {
+                .matcher(StringUtils.trim(unit.getType())).matches()) {
             return false;
         }
 
@@ -453,13 +453,13 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
 
         // 根据初始化模式，判断是否需要警告。
         if (NO_WARNING_FIELD_INITIALIZATION_TEXT_PATTERN_COMPILED.matcher(unit.getInitializerText())
-            .matches()) {
+                .matches()) {
             return false;
         }
 
         // 根据类名模式，判断是否需要警告。
         if (NO_WARNING_CONTAINING_CLASS_NAME_PATTERN_COMPILED.matcher(unit.getContainingClassName())
-            .matches()) {
+                .matches()) {
             return false;
         }
 
@@ -469,8 +469,9 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
     private void check(VariableCheckUnit unit, VariableTree tree) {
         if (shouldWarnStaticVariable(unit)) {
             reportIssue(tree, String.format(
-                "This static variable '%s' has potential risk on multi app pattern and cannot be automatically ruled out. Please take a deep look at the implementation and make sure it's safe. If this is not safe, please refactor corresponding implementation accordingly.",
-                unit.getName()));
+                    "This static variable '%s' has potential risk on multi app pattern and cannot be automatically ruled out, please check it manually.",
+                    unit.getName())
+            );
         }
     }
 }

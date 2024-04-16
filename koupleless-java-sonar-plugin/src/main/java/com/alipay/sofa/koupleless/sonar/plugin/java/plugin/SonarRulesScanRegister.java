@@ -16,16 +16,29 @@
  */
 package com.alipay.sofa.koupleless.sonar.plugin.java.plugin;
 
-import com.alipay.sofa.koupleless.sonar.plugin.java.plugin.SonarRulesDefinition;
-import org.sonar.api.Plugin;
+import com.alipay.sofa.koupleless.sonar.plugin.java.check.variable.MajorStaticVariableCheckRule;
+import org.sonar.plugins.java.api.CheckRegistrar;
+import org.sonar.plugins.java.api.JavaCheck;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author CodeNoobKing
- * @date 2024/4/11
+ * @date 2024/4/15
  **/
-public class SonarPlugin implements Plugin {
+public class SonarRulesScanRegister implements CheckRegistrar {
+
+    /**
+     * Register the classes that will be used to instantiate checks during analysis.
+     */
     @Override
-    public void define(Context context) {
-        context.addExtensions(SonarRulesDefinition.class, SonarRulesScanRegister.class);
+    public void register(RegistrarContext registrarContext) {
+        // Call to registerClassesForRepository to associate the classes with the correct repository key
+        registrarContext.registerClassesForRepository(
+                SonarRulesDefinition.REPOSITORY_KEY,
+                List.of(MajorStaticVariableCheckRule.class), Collections.emptyList()
+        );
     }
+
 }

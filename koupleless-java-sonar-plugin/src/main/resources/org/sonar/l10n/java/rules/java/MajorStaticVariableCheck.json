@@ -1,5 +1,5 @@
 {
-  "title": "Koupleless multi app compatibility check --- static variable",
+  "title": "Koupleless static variable runtime compatibility check.",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
@@ -9,5 +9,13 @@
   "tags": [
     "pitfall"
   ],
-  "defaultSeverity": "Major"
+  "defaultSeverity": "Major",
+  "cleanCodeAttribute": "CONVENTIONAL",
+  "cleanCodeAttributeCategory": "Adaptability",
+  "impacts": [
+    {
+      "softwareQuality": "Reliability",
+      "severity": "MEDIUM"
+    }
+  ]
 }
