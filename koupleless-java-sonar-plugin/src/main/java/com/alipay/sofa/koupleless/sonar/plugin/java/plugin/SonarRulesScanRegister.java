@@ -35,10 +35,8 @@ public class SonarRulesScanRegister implements CheckRegistrar {
     @Override
     public void register(RegistrarContext registrarContext) {
         // Call to registerClassesForRepository to associate the classes with the correct repository key
-        registrarContext.registerClassesForRepository(
-                SonarRulesDefinition.REPOSITORY_KEY,
-                List.of(MajorStaticVariableCheckRule.class), Collections.emptyList()
-        );
+        registrarContext.registerClassesForRepository(SonarRulesDefinition.REPOSITORY_KEY,
+            List.of(MajorStaticVariableCheckRule.class), Collections.emptyList());
     }
 
 }
