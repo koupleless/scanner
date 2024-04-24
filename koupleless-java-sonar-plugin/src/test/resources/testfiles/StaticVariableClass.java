@@ -19,5 +19,5 @@ public class StaticVariableClass {
 
     private static List<String> NO_WARNING_UNMODIFIABLE_LIST_INITIALIZE = List.of("a", "b", "c");
 
-    private static Integer SHOULD_BE_WARNING = 0; // Noncompliant {{This static variable 'SHOULD_BE_WARNING' has potential risk on multi app pattern and cannot be automatically ruled out. Please take a deep look at the implementation and make sure it's safe. If this is not safe, please refactor corresponding implementation accordingly.}}
+    private static Integer SHOULD_BE_WARNING = 0; // Noncompliant {{This static variable 'SHOULD_BE_WARNING' has potential risk on multi app pattern and cannot be automatically ruled out, please check it manually.}}
 }

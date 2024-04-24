@@ -7,7 +7,7 @@
 
     <groupId>com.alipay.sofa.koupleless</groupId>
     <artifactId>koupleless-static-scanner</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -17,11 +17,40 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>lvjing2</name>
+            <email>youji.zzl@antfin.com</email>
+            <organization>Ant Financial</organization>
+            <organizationUrl>https://www.alipay.com/</organizationUrl>
+        </developer>
+        <developer>
+            <name>qilong</name>
+            <email>qilong.zql@antfin.com</email>
+            <organization>Ant Financial</organization>
+            <organizationUrl>https://www.alipay.com/</organizationUrl>
+        </developer>
+        <developer>
+            <name>abby.zh</name>
+            <email>abby.zh@antfin.com</email>
+            <organization>Ant Financial</organization>
+            <organizationUrl>https://www.alipay.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/koupleless/koupleless.git</connection>
+        <developerConnection>scm:git:ssh://github.com/koupleless/koupleless.git
+        </developerConnection>
+        <url>http://github.com/koupleless/koupleless/tree/main</url>
+    </scm>
+
     <modules>
         <module>koupleless-java-sonar-plugin</module>
     </modules>
 
     <properties>
+        <revision>LATEST-SNAPSHOT</revision>
         <jdk.min.version>17</jdk.min.version>
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
         <sonar.version>10.4.1.88267</sonar.version>
@@ -32,8 +61,6 @@
         <orchestrator.version>3.40.0.183</orchestrator.version>
         <sslr.version>1.24.0.633</sslr.version>
         <argLine>-Xmx512m</argLine>
-        <gitRepositoryName>sonar-java</gitRepositoryName>
-        <artifactsToPublish>${project.groupId}:sonar-java-plugin:jar</artifactsToPublish>
         <version.jacoco.plugin>0.8.11</version.jacoco.plugin>
         <project.encoding>UTF-8</project.encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,6 +77,8 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+
+        <gpg.executable>gpg2</gpg.executable>
     </properties>
 
 
@@ -473,5 +502,71 @@
         </plugins>
 
     </build>
+
+    <profiles>
+        <profile>
+            <id>snapshot</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${maven.staging.plugin}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.pluign}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>maven-snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>maven-snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+    </profiles>
 
 </project>

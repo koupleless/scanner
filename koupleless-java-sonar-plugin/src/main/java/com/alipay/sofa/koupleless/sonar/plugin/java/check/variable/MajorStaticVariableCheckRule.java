@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
 
     /**
-     * When the field has final modifier and the type is immutable, the static variable is safe.
+     * When the field has final modifier and the type is immutable, the static variable is safe .
      */
     public static Pattern  NO_WARNING_IMMUTABLE_TYPES_COMPILED                   = null;
     public static String   NO_WARNING_IMMUTABLE_TYPES                            = """
