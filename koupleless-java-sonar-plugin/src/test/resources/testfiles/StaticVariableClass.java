@@ -19,5 +19,7 @@ public class StaticVariableClass {
 
     private static List<String> NO_WARNING_UNMODIFIABLE_LIST_INITIALIZE = List.of("a", "b", "c");
 
+    private static Map<Class<?>, String> NO_WARNING_CLASS_KEY_MAP = new HashMap<>();
+
     private static Integer SHOULD_BE_WARNING = 0; // Noncompliant {{This static variable 'SHOULD_BE_WARNING' has potential risk on multi app pattern and cannot be automatically ruled out, please check it manually.}}
 }

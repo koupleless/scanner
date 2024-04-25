@@ -380,6 +380,7 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
             OgnlMemberAccess|
             OgnlClassResolver|
             .*Map.*<.*ClassLoader.*|
+            .*Map.*<.*Class<.*|
             .*Predicate.*|
             .*ThreadLocal<.*|
             .*AttributeKey<.*|

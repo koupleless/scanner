@@ -16,26 +16,16 @@
  */
 package com.alipay.sofa.koupleless.sonar.plugin.java.plugin;
 
-import com.alipay.sofa.koupleless.sonar.plugin.java.check.variable.MajorStaticVariableCheckRule;
-import org.sonar.plugins.java.api.CheckRegistrar;
-import org.sonar.plugins.java.api.JavaCheck;
+import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 
-import java.util.Collections;
-import java.util.List;
+import static com.alipay.sofa.koupleless.sonar.plugin.java.plugin.SonarRulesDefinition.REPOSITORY_KEY;
 
-/**
- * @author CodeNoobKing
- * @date 2024/4/15
- **/
-public class SonarRulesScanRegister implements CheckRegistrar {
-
-    /**
-     * Register the classes that will be used to instantiate checks during analysis.
-     */
+public class SonarQualityProfilesDefinition implements BuiltInQualityProfilesDefinition {
     @Override
-    public void register(RegistrarContext registrarContext) {
-        // Call to registerClassesForRepository to associate the classes with the correct repository key
-        registrarContext.registerClassesForRepository(SonarRulesDefinition.REPOSITORY_KEY,
-            List.of(MajorStaticVariableCheckRule.class), Collections.emptyList());
+    public void define(Context context) {
+        NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile("KouplelessJavaWay",
+            "java");
+        profile.activateRule(REPOSITORY_KEY, "MajorStaticVariableCheck");
+        profile.done();
     }
 }

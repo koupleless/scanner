@@ -16,7 +16,6 @@
  */
 package com.alipay.sofa.koupleless.sonar.plugin.java.plugin;
 
-import com.alipay.sofa.koupleless.sonar.plugin.java.plugin.SonarRulesDefinition;
 import org.sonar.api.Plugin;
 
 /**
@@ -26,6 +25,7 @@ import org.sonar.api.Plugin;
 public class SonarPlugin implements Plugin {
     @Override
     public void define(Context context) {
-        context.addExtensions(SonarRulesDefinition.class, SonarRulesScanRegister.class);
+        context.addExtensions(SonarRulesDefinition.class, SonarRulesScanRegister.class,
+            SonarQualityProfilesDefinition.class);
     }
 }
