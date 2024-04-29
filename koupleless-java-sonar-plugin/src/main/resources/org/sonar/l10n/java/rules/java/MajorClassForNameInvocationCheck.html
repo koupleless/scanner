@@ -1,0 +1,18 @@
+<p>This rule detects usage of configured annotation</p>
+<h2>Noncompliant Code Example</h2>
+<pre id="compliantContent">
+
+    // The following code would cause potential multi app compatibility issues if it is in base;
+    // Koupleless runtime use sofa-ark to perform class isolation.
+    // Sofa-ark breaks the trivial classloader delegation model of jvm.
+    // But the class.forName default use the caller's class loader to load the class.
+    // This is very likely to be unmanaged, it would cause class not found error or other.
+
+    Class.forName("some.class.in.biz")
+</pre>
+<h2>Compliant Solution</h2>
+<pre id="compliantSolution">
+
+    // To fix this issue, we should find a way to find proper class loader to load the class.
+    Class.forName("some.class.in.biz", true, Thread.currentThread().getContextClassLoader())
+</pre>
