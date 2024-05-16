@@ -1,4 +1,4 @@
-<p>This rule detects usage of configured annotation</p>
+<p>This rule detects usage of class.getClassLoader invocation</p>
 <h2>Noncompliant Code Example</h2>
 <pre id="compliantContent">
 
@@ -6,11 +6,11 @@
     // Therefore classes in app0 can't be founded by the class loader of app1, or else error would be thrown.
     // To ensure the biz logic correctness, each classLoader assignment should be carefully checked.
 
-    Map&lt; String, Method&gt; nameToClassFieldCache = new HashMap<>();
+    SomeClass.class.getClassLoader()
 </pre>
 <h2>Compliant Solution</h2>
 <pre id="compliantSolution">
 
-    // To fix this issue, we should add another layer of key which type is classloader to address the conflict.
-    Map&lt;ClassLoader, Map&lt;String, Method&gt;&gt; nameToClassFieldCache = new HashMap<>();
+    // To fix this issue, we should find a way to use a more proper class loader to perform the further logic.
+    Thread.currentThread().getContextClassLoader() // this is usually correct
 </pre>

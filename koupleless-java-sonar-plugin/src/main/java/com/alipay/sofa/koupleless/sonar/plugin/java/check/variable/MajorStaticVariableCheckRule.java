@@ -468,7 +468,7 @@ public class MajorStaticVariableCheckRule extends IssuableSubscriptionVisitor {
     }
 
     private void check(VariableCheckUnit unit, VariableTree tree) {
-        if (shouldWarnStaticVariable(unit)) {
+        if (unit.isStaticModifier() && shouldWarnStaticVariable(unit)) {
             reportIssue(tree, String.format(
                 "This static variable '%s' has potential risk on multi app pattern and cannot be automatically ruled out, please check it manually.",
                 unit.getName()));

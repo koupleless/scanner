@@ -1,0 +1,21 @@
+{
+  "title": "Koupleless class getClassLoader method invocation check",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Major",
+  "cleanCodeAttribute": "CONVENTIONAL",
+  "cleanCodeAttributeCategory": "Adaptability",
+  "impacts": [
+    {
+      "softwareQuality": "Reliability",
+      "severity": "MEDIUM"
+    }
+  ]
+}

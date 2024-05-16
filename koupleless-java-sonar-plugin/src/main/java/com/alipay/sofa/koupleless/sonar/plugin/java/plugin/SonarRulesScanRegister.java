@@ -16,6 +16,8 @@
  */
 package com.alipay.sofa.koupleless.sonar.plugin.java.plugin;
 
+import com.alipay.sofa.koupleless.sonar.plugin.java.check.klass.MajorClassForNameInvocationCheckRule;
+import com.alipay.sofa.koupleless.sonar.plugin.java.check.klass.MajorClassGetClassLoaderInvocationCheckRule;
 import com.alipay.sofa.koupleless.sonar.plugin.java.check.variable.MajorStaticVariableCheckRule;
 import org.sonar.plugins.java.api.CheckRegistrar;
 import org.sonar.plugins.java.api.JavaCheck;
@@ -36,6 +38,8 @@ public class SonarRulesScanRegister implements CheckRegistrar {
     public void register(RegistrarContext registrarContext) {
         // Call to registerClassesForRepository to associate the classes with the correct repository key
         registrarContext.registerClassesForRepository(SonarRulesDefinition.REPOSITORY_KEY,
-            List.of(MajorStaticVariableCheckRule.class), Collections.emptyList());
+            List.of(MajorStaticVariableCheckRule.class, MajorClassForNameInvocationCheckRule.class,
+                MajorClassGetClassLoaderInvocationCheckRule.class),
+            Collections.emptyList());
     }
 }
