@@ -44,7 +44,7 @@ public class MajorClassGetClassLoaderInvocationCheckRule extends IssuableSubscri
         if (CLASS_GET_CLASS_LOADER_SIGNATURE
             .equals(methodInvocationTree.methodSymbol().signature())) {
             reportIssue(tree,
-                "'Class getClassLoader return use current model's classLoader, which may cause incorrect behaviour, plz check it manually.");
+                "Class getClassLoader return use current model's classLoader, which may cause incorrect behaviour, plz check it manually.");
         }
         super.visitNode(tree);
     }
