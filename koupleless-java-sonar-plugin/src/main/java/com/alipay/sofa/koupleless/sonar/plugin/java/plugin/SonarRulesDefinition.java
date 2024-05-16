@@ -16,6 +16,8 @@
  */
 package com.alipay.sofa.koupleless.sonar.plugin.java.plugin;
 
+import com.alipay.sofa.koupleless.sonar.plugin.java.check.klass.MajorClassForNameInvocationCheckRule;
+import com.alipay.sofa.koupleless.sonar.plugin.java.check.klass.MajorClassGetClassLoaderInvocationCheckRule;
 import com.alipay.sofa.koupleless.sonar.plugin.java.check.variable.MajorStaticVariableCheckRule;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.server.rule.RulesDefinition;
@@ -54,7 +56,8 @@ public class SonarRulesDefinition implements RulesDefinition {
         RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, runtime);
 
         ruleMetadataLoader.addRulesByAnnotatedClass(repository,
-            List.of(MajorStaticVariableCheckRule.class));
+            List.of(MajorStaticVariableCheckRule.class, MajorClassForNameInvocationCheckRule.class,
+                MajorClassGetClassLoaderInvocationCheckRule.class));
 
         repository.done();
     }
